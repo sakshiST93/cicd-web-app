@@ -1,3 +1,4 @@
+```yaml
 name: Deploy Website
 
 on:
@@ -5,32 +6,17 @@ on:
     branches:
       - main
 
-  workflow_dispatch:
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Get the repository code
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Install Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      # 3. Install project dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # 4. Install the latest Vercel CLI
       - name: Install Vercel CLI
-        run: npm install -g vercel@latest
+        run: npm install --global vercel
 
-      # 5. Deploy to Vercel
       - name: Deploy to Vercel
-        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+```
